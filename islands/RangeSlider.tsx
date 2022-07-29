@@ -38,7 +38,7 @@ const RangeSlider: FunctionComponent<RangeSliderOptions> = ({
     <div class={tw`flex flex-col items-center justify-center`}>
       <h1>Längd: {value}m </h1>
       <input
-        class={tw`w-44`}
+        class={tw`w-[45vw] scale-150`}
         onChange={(e) => {
           if (!isInputTarget(e.target)) {
             return;

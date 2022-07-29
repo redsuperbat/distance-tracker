@@ -11,7 +11,7 @@ export const handler: Handlers = {
     const query = url.searchParams.get("distance");
     if (!query) return ctx.render();
     const distance = Number(query);
-    client.add({
+    client.from("distances").add({
       club: req.url.split("/").at(-1)?.split("?")?.at(0),
       distance,
     });
@@ -44,8 +44,8 @@ const ClubPage = (props: PageProps) => {
     >
       <h1 class={tw`font-bold`}>Club {club}</h1>
       <form class={tw`flex flex-col items-center justify-center`}>
-        <RangeSlider min={0} max={100} />
-        <button class={tw`mt-2 p-1 bg-blue-700 text-white rounded`}>
+        <RangeSlider min={0} max={500} />
+        <button class={tw`mt-5 p-1 bg-blue-700 text-white rounded`}>
           Submit
         </button>
       </form>

@@ -1,26 +1,25 @@
 /** @jsx h */
-import { PageProps } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 import { h } from "preact";
 import { ClubButton, ClubType } from "../components/ClubButton.tsx";
+import { client } from "../supabase/client.ts";
 
 interface Data {
-  club: ClubType;
+  clubs: { club_name: ClubType }[];
 }
 
+export const handler: Handlers = {
+  async GET(_, ctx) {
+    const clubs = await client.from("clubs").getAll();
+    return ctx.render({ clubs });
+  },
+};
+
 export default function Home(props: PageProps<Data>) {
-  const clubs: ClubType[] = [
-    "i4",
-    "i5",
-    "i6",
-    "i7",
-    "i8",
-    "i9",
-    "pw",
-    "50deg",
-    "60deg",
-    "56deg",
-  ];
+  const clubs: ClubType[] = props?.data?.clubs.map(
+    ({ club_name }) => club_name
+  );
 
   return (
     <div class={tw`h-screen flex flex-col items-center justify-center p-4`}>
