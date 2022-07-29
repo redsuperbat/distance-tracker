@@ -3,6 +3,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 import { h } from "preact";
 import RangeSlider from "../islands/RangeSlider.tsx";
+import { client } from "../supabase/client.ts";
 
 export const handler: Handlers = {
   GET(req, ctx) {
@@ -10,7 +11,10 @@ export const handler: Handlers = {
     const query = url.searchParams.get("distance");
     if (!query) return ctx.render();
     const distance = Number(query);
-
+    client.add({
+      club: req.url.split("/").at(-1)?.split("?")?.at(0),
+      distance,
+    });
     return ctx.render({ distance });
   },
 };

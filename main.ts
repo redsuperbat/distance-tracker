@@ -5,6 +5,7 @@
 /// <reference lib="deno.unstable" />
 
 import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
+import "https://deno.land/std@0.150.0/dotenv/load.ts";
 import manifest from "./fresh.gen.ts";
 
 import { config, setup } from "@twind";
@@ -18,7 +19,7 @@ function render(ctx: RenderContext, render: InnerRenderFunction) {
   const snapshot = ctx.state.get("twind") as unknown[] | null;
   sheet.reset(snapshot || undefined);
   render();
-  ctx.styles.splice(0, ctx.styles.length, ...(sheet).target);
+  ctx.styles.splice(0, ctx.styles.length, ...sheet.target);
   const newSnapshot = sheet.reset();
   ctx.state.set("twind", newSnapshot);
 }
