@@ -42,7 +42,7 @@ export default function Home(props: PageProps<Data>) {
       <h1>Choose a club</h1>
       <div class={tw`grid grid-cols-3`}>
         {clubs.map((club) => (
-          <a href={`/${club.id}`}>
+          <a href={`/${club.id}?club_name=${club.club_name}`}>
             <ClubButton type={club.club_name} />
           </a>
         ))}

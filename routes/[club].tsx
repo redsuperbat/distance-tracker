@@ -21,7 +21,7 @@ export const handler: Handlers = {
 };
 
 const ClubPage = (props: PageProps) => {
-  const { club } = props.params;
+  const clubName = props.url.searchParams.get("club_name");
   const distance = props?.data?.distance;
 
   if (distance) {
@@ -30,7 +30,7 @@ const ClubPage = (props: PageProps) => {
         class={tw`h-screen flex flex-col items-center justify-center space-y-4`}
       >
         <h1>
-          Distance {distance}m for club {club} submitted!
+          Distance {distance}m for club {clubName} submitted!
         </h1>
         <a href="/" class={tw`mt-2 p-1 bg-blue-700 text-white rounded`}>
           Return
@@ -43,7 +43,7 @@ const ClubPage = (props: PageProps) => {
     <div
       class={tw`h-screen flex flex-col items-center justify-center space-y-4`}
     >
-      <h1 class={tw`font-bold`}>Club {club}</h1>
+      <h1 class={tw`font-bold`}>Club {clubName}</h1>
       <form class={tw`flex flex-col items-center justify-center`}>
         <RangeSlider min={0} max={500} />
         <button
