@@ -26,6 +26,16 @@ class SupabaseRequest {
     });
     return res.json();
   }
+  public async select(query: string) {
+    const url = `${baseUrl}/rest/v1/${this.tableName}?select=${query}`;
+    const res = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        apikey: key,
+      },
+    });
+    return res.json();
+  }
 }
 
 export const client = {

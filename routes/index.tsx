@@ -30,7 +30,15 @@ export default function Home(props: PageProps<Data>) {
   );
 
   return (
-    <div class={tw`h-screen flex flex-col items-center justify-center p-4`}>
+    <div
+      class={tw`h-screen flex flex-col items-center justify-center p-4 relative`}
+    >
+      <a
+        href="/statistics"
+        class={tw`p-2 absolute top-0 right-0 bg-blue-400 rounded m-1 text-white`}
+      >
+        Statistics
+      </a>
       <h1>Choose a club</h1>
       <div class={tw`grid grid-cols-3`}>
         {clubs.map((club) => (

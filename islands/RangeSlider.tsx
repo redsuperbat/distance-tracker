@@ -36,7 +36,7 @@ const RangeSlider: FunctionComponent<RangeSliderOptions> = ({
 
   return (
     <div class={tw`flex flex-col items-center justify-center`}>
-      <h1>Längd: {value}m </h1>
+      <h1>Distance: {value}m </h1>
       <input
         class={tw`w-[45vw] scale-150`}
         onChange={(e) => {
