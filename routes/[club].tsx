@@ -6,15 +6,16 @@ import RangeSlider from "../islands/RangeSlider.tsx";
 import { client } from "../supabase/client.ts";
 
 export const handler: Handlers = {
-  GET(req, ctx) {
+  async GET(req, ctx) {
     const url = new URL(req.url);
     const query = url.searchParams.get("distance");
     if (!query) return ctx.render();
     const distance = Number(query);
-    client.from("distances").add({
-      club: req.url.split("/").at(-1)?.split("?")?.at(0),
+    const res = await client.from("distances").add({
+      club_id: Number(ctx.params.club),
       distance,
     });
+    console.log(res);
     return ctx.render({ distance });
   },
 };
@@ -45,7 +46,10 @@ const ClubPage = (props: PageProps) => {
       <h1 class={tw`font-bold`}>Club {club}</h1>
       <form class={tw`flex flex-col items-center justify-center`}>
         <RangeSlider min={0} max={500} />
-        <button class={tw`mt-5 p-1 bg-blue-700 text-white rounded`}>
+        <button
+          type="submit"
+          class={tw`mt-5 p-1 bg-blue-700 text-white rounded`}
+        >
           Submit
         </button>
       </form>

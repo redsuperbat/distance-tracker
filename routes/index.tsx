@@ -2,11 +2,11 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { tw } from "@twind";
 import { h } from "preact";
-import { ClubButton, ClubType } from "../components/ClubButton.tsx";
+import { ClubButton } from "../components/ClubButton.tsx";
 import { client } from "../supabase/client.ts";
 
 interface Data {
-  clubs: { club_name: ClubType }[];
+  clubs: { club_name: string; id: number }[];
 }
 
 export const handler: Handlers = {
@@ -17,8 +17,16 @@ export const handler: Handlers = {
 };
 
 export default function Home(props: PageProps<Data>) {
-  const clubs: ClubType[] = props?.data?.clubs.map(
-    ({ club_name }) => club_name
+  const clubs: { club_name: string; id: number }[] = props?.data?.clubs.sort(
+    (a, b) => {
+      if (a.club_name < b.club_name) {
+        return -1;
+      }
+      if (a.club_name > b.club_name) {
+        return 1;
+      }
+      return 0;
+    }
   );
 
   return (
@@ -26,8 +34,8 @@ export default function Home(props: PageProps<Data>) {
       <h1>Choose a club</h1>
       <div class={tw`grid grid-cols-3`}>
         {clubs.map((club) => (
-          <a href={`/${club}`}>
-            <ClubButton type={club} />
+          <a href={`/${club.id}`}>
+            <ClubButton type={club.club_name} />
           </a>
         ))}
       </div>
